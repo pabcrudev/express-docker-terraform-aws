@@ -1,15 +1,29 @@
 name: Configure Terraform
 description: Setup Terraform
 
+inputs:
+  aws-access-key-id:
+    description: 'AWS Access Key ID'
+    required: true
+  aws-secret-access-key:
+    description: 'AWS Secret Access Key'
+    required: true
+  aws-session-token:
+    description: 'AWS Session Token'
+    required: true
+  aws-region:
+    description: 'AWS Region'
+    required: true
+
 runs:
   using: composite
   steps:
     - name: Configure AWS CLI
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN}}
+        aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ inputs.AWS_SESSION_TOKEN}}
         aws-region: us-east-1
 
     - name: Install Terraform
