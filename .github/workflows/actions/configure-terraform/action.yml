@@ -30,4 +30,5 @@ runs:
       uses: hashicorp/setup-terraform@v2
 
     - name: Init Terraform
+      shell: bash
       run: terraform init
