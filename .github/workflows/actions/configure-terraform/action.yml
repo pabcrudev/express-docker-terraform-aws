@@ -21,9 +21,9 @@ runs:
     - name: Configure AWS CLI
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        aws-access-key-id: ${{ inputs.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ inputs.AWS_SESSION_TOKEN}}
+        aws-access-key-id: ${{ input.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ input.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ input.AWS_SESSION_TOKEN}}
         aws-region: us-east-1
 
     - name: Install Terraform
