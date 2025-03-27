@@ -26,6 +26,7 @@ jobs:
       run: terraform plan -destroy -out=destroy.plan
 
     - name: Save the Destroy Plan
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
+        name: destroy.plan
         path: destroy.plan
