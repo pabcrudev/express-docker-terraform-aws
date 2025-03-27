@@ -21,3 +21,11 @@ jobs:
 
     - name: Apply Terraform
       run: terraform apply -auto-approve
+
+    - name: Create a Destroy Plan
+      run: terraform plan -destroy -out=destroy.plan
+
+    - name: Save the Destroy Plan
+      uses: actions/upload-artifact@v2
+      with:
+        path: destroy.plan
