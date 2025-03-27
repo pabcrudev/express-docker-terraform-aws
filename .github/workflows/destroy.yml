@@ -19,5 +19,10 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1
 
+    - name: Download the Destroy Plan
+      uses: actions/download-artifact@v4
+      with:
+        name: destroy.plan
+
     - name: Apply Terraform
-      run: terraform destroy -auto-approve
+      run: terraform apply destroy.plan
