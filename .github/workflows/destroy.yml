@@ -1,4 +1,4 @@
-name: Use Terraform to Deploy AWS Infrastructure
+name: Use Terraform to Destroy AWS Infrastructure
 
 on:
   workflow_dispatch:
@@ -20,4 +20,4 @@ jobs:
         aws-region: us-east-1
 
     - name: Apply Terraform
-      run: terraform apply -auto-approve
+      run: terraform destroy -auto-approve
