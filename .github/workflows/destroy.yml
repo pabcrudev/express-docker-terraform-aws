@@ -24,6 +24,7 @@ jobs:
       with:
         name: destroy.plan
         github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
 
     - name: Apply Terraform
       run: terraform apply destroy.plan
