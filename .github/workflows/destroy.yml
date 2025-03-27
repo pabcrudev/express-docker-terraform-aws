@@ -23,6 +23,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: destroy.plan
+        github-token: ${{ github.token }}
 
     - name: Apply Terraform
       run: terraform apply destroy.plan
