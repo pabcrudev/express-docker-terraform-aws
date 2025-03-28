@@ -2,6 +2,10 @@ name: Use Terraform to Destroy AWS Infrastructure
 
 on:
   workflow_dispatch:
+    inputs:
+      artifact-run-id:
+        description: The run ID of the artifact to download
+        required: true
 
 jobs:
   destroy:
