@@ -30,3 +30,4 @@ jobs:
       with:
         name: destroy_plan
         path: destroy_plan
+        retention-days: 1
