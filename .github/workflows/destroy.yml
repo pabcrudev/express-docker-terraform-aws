@@ -29,6 +29,7 @@ jobs:
         name: destroy_plan
         github-token: ${{ github.token }}
         repository: ${{ github.repository }}
+        run-id: ${{ github.event.inputs.artifact-run-id }}
 
     - name: Apply Terraform
       run: terraform apply destroy_plan
