@@ -1,11 +1,21 @@
-name: Use Terraform to Destroy AWS Infrastructure
+name: Destroy
+description: |
+  This workflow uses Terraform to destroy the AWS infrastructure.
+  It downloads the destroy plan artifact and applies it to destroy the infrastructure.
 
 on:
   workflow_dispatch:
+    inputs:
+      artifact-run-id:
+        description: The run ID of the Action that generated the "terraform.tfstate" artifact.
+        required: true
 
 jobs:
-  deploy:
+  destroy:
     runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
 
     steps:
     - name: Checkout
@@ -19,5 +29,13 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1
 
-    - name: Apply Terraform
+    - name: Download the "terraform.tfstate" file
+      uses: actions/download-artifact@v4
+      with:
+        name: terraform.tfstate
+        github-token: ${{ github.token }}
+        repository: ${{ github.repository }}
+        run-id: ${{ github.event.inputs.artifact-run-id }}
+
+    - name: Destroy Terraform
       run: terraform destroy -auto-approve
