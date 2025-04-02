@@ -25,7 +25,7 @@ jobs:
     - name: Apply Terraform
       run: terraform apply -auto-approve
 
-    - name: Save the terraform.tfstate file
+    - name: Save the "terraform.tfstate" file
       uses: actions/upload-artifact@v4
       with:
         name: terraform.tfstate
