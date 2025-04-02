@@ -1,4 +1,7 @@
-name: Use Terraform to Deploy AWS Infrastructure
+name: Deploy
+description: |
+  This workflow uses Terraform to deploy the AWS infrastructure.
+  It applies the Terraform configuration to create the infrastructure.
 
 on:
   workflow_dispatch:

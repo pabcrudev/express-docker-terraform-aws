@@ -1,4 +1,7 @@
-name: Use Terraform to Destroy AWS Infrastructure
+name: Destroy
+description: |
+  This workflow uses Terraform to destroy the AWS infrastructure.
+  It downloads the destroy plan artifact and applies it to destroy the infrastructure.
 
 on:
   workflow_dispatch:
