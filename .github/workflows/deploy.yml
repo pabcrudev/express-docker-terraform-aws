@@ -25,12 +25,9 @@ jobs:
     - name: Apply Terraform
       run: terraform apply -auto-approve
 
-    - name: Create a Destroy Plan
-      run: terraform plan -destroy -out=destroy_plan
-
-    - name: Save the Destroy Plan
+    - name: Save the terraform.tfstate file
       uses: actions/upload-artifact@v4
       with:
-        name: destroy_plan
-        path: destroy_plan
+        name: terraform.tfstate
+        path: terraform.tfstate
         retention-days: 1

@@ -29,13 +29,13 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1
 
-    - name: Download the Destroy Plan
+    - name: Download the terraform.tfstate file
       uses: actions/download-artifact@v4
       with:
-        name: destroy_plan
+        name: terraform.tfstate
         github-token: ${{ github.token }}
         repository: ${{ github.repository }}
         run-id: ${{ github.event.inputs.artifact-run-id }}
 
-    - name: Apply Terraform
-      run: terraform apply destroy_plan
+    - name: Destroy Terraform
+      run: terraform destroy -auto-approve
