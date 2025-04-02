@@ -11,6 +11,9 @@ jobs:
   destroy:
     runs-on: ubuntu-latest
 
+    permissions:
+      actions: read
+
     steps:
     - name: Checkout
       uses: actions/checkout@v3
