@@ -1,0 +1,67 @@
+name: Deploy or Destroy an AWS Infrastructure with Terraform
+description: |
+  This workflow uses Terraform to deploy or destroy the AWS infrastructure.
+  It applies the Terraform configuration to create the infrastructure or destroys it based on the input.
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Choose whether to deploy or destroy the infrastructure.
+        type: choice
+        options:
+          - deploy
+          - destroy
+        required: true
+
+jobs:
+  deploy:
+    if: ${{ github.event.inputs.action == 'deploy' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure Terraform
+      uses: ./.github/actions/configure-terraform
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Apply Terraform
+      run: terraform apply -auto-approve
+
+    - name: Save the "terraform.tfstate" file
+      uses: actions/upload-artifact@v4
+      with:
+        name: terraform.tfstate
+        path: terraform.tfstate
+        retention-days: 1
+
+  destroy:
+    if: ${{ github.event.inputs.action == 'destroy' }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure Terraform
+      uses: ./.github/actions/configure-terraform
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Download the "terraform.tfstate" file
+      uses: actions/download-artifact@v4
+      with:
+        name: terraform.tfstate
+
+    - name: Destroy Terraform
+      run: terraform destroy -auto-approve
+
