@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Configure Terraform
-      uses: ./.github/workflows/actions/configure-terraform
+      uses: ./.github/actions/configure-terraform
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
